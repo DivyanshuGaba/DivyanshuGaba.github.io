@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divyanshu Gaba — Software Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0d0d0d;
+      --paper: #f5f1eb;
+      --cream: #ede8e0;
+      --accent: #c0392b;
+      --accent2: #2c3e50;
+      --muted: #6b6660;
+      --border: #d4cfc8;
+      --card: #faf8f4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(245, 241, 235, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      gap: 4rem;
+    }
+
+    .hero-text { animation: fadeUp 0.9s ease both; }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.85rem 1.8rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1.5px solid var(--border);
+      color: var(--ink);
+      padding: 0.85rem 1.8rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-visual {
+      animation: fadeUp 0.9s 0.2s ease both;
+      position: relative;
+    }
+
+    .hero-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px;
+      right: -8px; bottom: -8px;
+      border: 1px solid var(--border);
+      z-index: -1;
+    }
+
+    .hero-card-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-item { border-left: 2px solid var(--accent); padding-left: 1rem; }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.5rem 1rem;
+      font-size: 0.78rem;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 3rem; max-width: 1300px; margin: 0 auto; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      white-space: nowrap;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: auto;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .divider hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-details { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .detail-item {
+      padding: 1.2rem;
+      background: var(--cream);
+      border-left: 3px solid var(--accent);
+    }
+
+    .detail-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-val {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── SKILLS ── */
+    .skills-bg {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .skills-section {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+
+    .skills-section .section-header .section-label { color: var(--accent); }
+    .skills-section h2 { color: var(--paper); }
+    .skills-section .section-line { background: #333; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #222;
+      border: 1px solid #222;
+    }
+
+    .skill-cell {
+      background: var(--ink);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .skill-cell:hover { background: #1a1a1a; }
+
+    .skill-cell-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tech-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 0.3rem 0.65rem;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .project-card:hover::after { width: 100%; }
+
+    .project-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .project-highlights {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-highlights li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-highlights li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover { gap: 0.7rem; }
+
+    /* ── EDUCATION ── */
+    .edu-timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .edu-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .edu-item:last-child { border-bottom: none; }
+
+    .edu-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding-top: 0.15rem;
+    }
+
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .edu-institution {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .edu-modules {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .bcs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.78rem;
+      font-family: 'DM Mono', monospace;
+      margin-top: 0.8rem;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .cert-card {
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      background: var(--card);
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover { border-color: var(--accent); }
+
+    .cert-issuer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .cert-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── CONTACT ── */
+    .contact-bg {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-section {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+
+    .contact-link-icon {
+      font-size: 1.1rem;
+      color: var(--accent);
+      width: 24px;
+    }
+
+    .contact-link-label {
+      font-size: 0.78rem;
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.1rem;
+    }
+
+    .contact-link-value {
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .contact-message h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-message p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .languages {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .lang-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.6rem 1.2rem;
+      min-width: 80px;
+    }
+
+    .lang-name { font-weight: 600; font-size: 0.9rem; }
+    .lang-level { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; min-height: auto; gap: 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid, .certs-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-section { padding: 4rem 1.5rem; }
+      .contact-section { padding: 4rem 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">DG</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="hero">
+      <div class="hero-text">
+        <p class="hero-eyebrow">MSc Advanced Computer Science · Hatfield, UK</p>
+        <h1>Divyanshu<br/><em>Gaba</em></h1>
+        <p class="hero-desc">
+          Software Engineer specialising in cross-platform mobile development, automation, and AI-driven applications. Currently pursuing MSc Advanced Computer Science at the University of Hertfordshire. BCS Student Member.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects →</a>
+          <a href="mailto:divyanshugaba2612@gmail.com" class="btn-outline">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <p class="hero-card-label">// profile snapshot</p>
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="stat-number">4+</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">5</div>
+              <div class="stat-label">Certifications</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">3</div>
+              <div class="stat-label">Languages</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">8+</div>
+              <div class="stat-label">Technologies</div>
+            </div>
+          </div>
+          <div class="location-badge">
+            <span>📍</span> Hatfield, Hertfordshire, UK
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr/></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header fade-in">
+      <span class="section-label">01 / About</span>
+      <h2>Who I Am</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>
+          I'm an MSc Advanced Computer Science candidate at the University of Hertfordshire, with a solid foundation in engineering cross-platform mobile applications, automating data extraction workflows, and implementing complex system architectures across Python, Swift, and Kotlin.
+        </p>
+        <p>
+          My academic journey spans both Indian and UK institutions, giving me a cross-cultural perspective on software development. I combine formal education in software engineering and algorithms with hands-on project experience from iOS calculators to real time Android weather applications.
+        </p>
+        <p>
+          I'm passionate about applying cybersecurity principles and AI technologies to modern software development, whilst continuously expanding my technical expertise through professional certifications and self-directed learning.
+        </p>
+      </div>
+      <div class="about-details fade-in">
+        <div class="detail-item">
+          <div class="detail-key">Current Role</div>
+          <div class="detail-val">MSc Student — University of Hertfordshire</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-key">Location</div>
+          <div class="detail-val">Hatfield, Hertfordshire, United Kingdom</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-key">Membership</div>
+          <div class="detail-val">British Computer Society (BCS) — Student Member</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-key">Email</div>
+          <div class="detail-val">divyanshugaba2612@gmail.com</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-key">Availability</div>
+          <div class="detail-val">Open to internships &amp; placement opportunities</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div class="skills-bg">
+    <div class="skills-section" id="skills">
+      <div class="section-header fade-in">
+        <span class="section-label">02 / Skills</span>
+        <h2>Technical Proficiencies</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid fade-in">
+        <div class="skill-cell">
+          <div class="skill-cell-label">Languages</div>
+          <div class="tech-pills">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Swift</span>
+            <span class="tech-pill">Kotlin</span>
+            <span class="tech-pill">Java</span>
+            <span class="tech-pill">C</span>
+            <span class="tech-pill">C++</span>
+            <span class="tech-pill">SQL</span>
+            <span class="tech-pill">Unix Shell</span>
+            <span class="tech-pill">HTML5</span>
+            <span class="tech-pill">CSS3</span>
+            <span class="tech-pill">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-cell">
+          <div class="skill-cell-label">Tools &amp; Platforms</div>
+          <div class="tech-pills">
+            <span class="tech-pill">Git / GitHub</span>
+            <span class="tech-pill">Android Studio</span>
+            <span class="tech-pill">Visual Studio Code</span>
+            <span class="tech-pill">UiPath</span>
+            <span class="tech-pill">Material You</span>
+            <span class="tech-pill">NSE Data Systems</span>
+            <span class="tech-pill">MVVM</span>
+            <span class="tech-pill">Coroutines/Flow</span>
+          </div>
+        </div>
+        <div class="skill-cell">
+          <div class="skill-cell-label">Engineering Areas</div>
+          <div class="tech-pills">
+            <span class="tech-pill">Full Stack Dev</span>
+            <span class="tech-pill">Mobile Dev (iOS/Android)</span>
+            <span class="tech-pill">Automation</span>
+            <span class="tech-pill">API Integration</span>
+            <span class="tech-pill">UI/UX Design</span>
+            <span class="tech-pill">Agile</span>
+            <span class="tech-pill">QA &amp; Testing</span>
+            <span class="tech-pill">Cybersecurity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header fade-in">
+      <span class="section-label">03 / Projects</span>
+      <h2>Selected Work</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-year">2025</div>
+        <div class="project-title">Android-Themed Calculator for iOS</div>
+        <p class="project-desc">An iOS calculator app engineered in Swift, designed with a Pixel-inspired Material You interface that blends Android aesthetics with native iOS performance. Features adaptive colour theming and smooth UI animations.</p>
+        <ul class="project-highlights">
+          <li>Optimised layout with Auto Layout constraints for seamless responsiveness across all iPhone screen sizes</li>
+          <li>Published following clean-architecture principles for maintainability and future expansion</li>
+          <li>Implemented core arithmetic logic with smooth UI micro-interactions</li>
+        </ul>
+        <div class="project-tags">
+          <span class="tag">Swift</span>
+          <span class="tag">iOS</span>
+          <span class="tag">Material You</span>
+          <span class="tag">Auto Layout</span>
+          <span class="tag">Clean Architecture</span>
+        </div>
+        <a href="https://github.com/DivyanshuGaba/Android-Theme-Calculator-for-IOS" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-year">2025</div>
+        <div class="project-title">NSE Data Automation Workflow</div>
+        <p class="project-desc">An automated data-extraction workflow for real-time NSE India market feeds, replacing manual retrieval processes. Built with UiPath, web-scraping components, data-validation rules, and scheduled bot execution.</p>
+        <ul class="project-highlights">
+          <li>Boosted reporting reliability and decreased processing time with clean, analysis-ready datasets</li>
+          <li>Implemented automation governance: exception handling, logging, and audit-trail management</li>
+          <li>Improved both speed and accuracy of market-analysis activities</li>
+        </ul>
+        <div class="project-tags">
+          <span class="tag">UiPath</span>
+          <span class="tag">Web Scraping</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Data Validation</span>
+          <span class="tag">NSE India</span>
+        </div>
+        <a href="https://github.com/DivyanshuGaba/NSE-data-fetch" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-year">2024</div>
+        <div class="project-title">Super Mario Bros Game Replica</div>
+        <p class="project-desc">A fully functional 2D platformer inspired by Super Mario Bros, built in Python. Recreates core gameplay mechanics including character movement, enemy behaviour, collision detection, and level progression.</p>
+        <ul class="project-highlights">
+          <li>Built game architecture from the ground up including asset integration and physics systems</li>
+          <li>Improved system scalability and maintainability through event handling architecture</li>
+          <li>Refined gameplay mechanics resulting in an optimal player experience</li>
+        </ul>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Game Development</span>
+          <span class="tag">Physics Engine</span>
+          <span class="tag">2D Platformer</span>
+        </div>
+        <a href="https://github.com/DivyanshuGaba/mario" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-year">2023</div>
+        <div class="project-title">Android Weather Application</div>
+        <p class="project-desc">A feature-rich Android weather application built with Kotlin, applying clean architecture principles and modern Android development practices. Integrates real-time data from third-party weather APIs for accurate, location-based forecasts.</p>
+        <ul class="project-highlights">
+          <li>Developed hourly/daily forecasts and customisable weather alerts</li>
+          <li>Implemented asynchronous data loading with Coroutines/Flow</li>
+          <li>Leveraged MVVM architecture for clear separation of concerns</li>
+        </ul>
+        <div class="project-tags">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Android</span>
+          <span class="tag">MVVM</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Coroutines</span>
+        </div>
+        <a href="https://github.com/DivyanshuGaba/weatherapp" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr/></div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-header fade-in">
+      <span class="section-label">04 / Education</span>
+      <h2>Academic Background</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-timeline">
+      <div class="edu-item fade-in">
+        <div class="edu-period">2025 – Sep 2026<br/>(Expected)</div>
+        <div>
+          <div class="edu-degree">MSc Advanced Computer Science</div>
+          <div class="edu-institution">University of Hertfordshire — Hatfield, United Kingdom</div>
+          <div class="edu-modules">Key Modules: Software Engineering · Artificial Intelligence · Algorithms and Paradigms</div>
+          <div class="bcs-badge">🎓 BCS Student Member</div>
+        </div>
+      </div>
+      <div class="edu-item fade-in">
+        <div class="edu-period">2021 – 2025</div>
+        <div>
+          <div class="edu-degree">B.Tech Computer Science &amp; Engineering</div>
+          <div class="edu-institution">Amity University — Manesar, India</div>
+          <div class="edu-modules">Comprehensive foundation in algorithms, data structures, system design, and software engineering methodologies. Multiple notable projects in Python, Android, and automation.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><hr/></div>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-header fade-in">
+      <span class="section-label">05 / Certifications</span>
+      <h2>Professional Training</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card fade-in">
+        <div class="cert-issuer">LinkedIn Learning · 2025</div>
+        <div class="cert-title">Artificial Intelligence for Cybersecurity</div>
+        <div class="cert-desc">Applying AI techniques for threat detection, anomaly identification, and intelligent security response systems.</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-issuer">LinkedIn Learning · 2025</div>
+        <div class="cert-title">Python Essential Training</div>
+        <div class="cert-desc">Proficiency in Python programming, coding practices, and systematic problem-solving techniques.</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-issuer">Udemy · 2025</div>
+        <div class="cert-title">Cyber Security Fundamentals</div>
+        <div class="cert-desc">Digital security, vulnerability assessment, and cyber threat prevention strategies.</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-issuer">UiPath Academy · 2025</div>
+        <div class="cert-title">Automation Developer Associate</div>
+        <div class="cert-desc">Building automated workflows and processes using UiPath automation tools and best practices.</div>
+      </div>
+      <div class="cert-card fade-in">
+        <div class="cert-issuer">Coding Ninjas · 2022</div>
+        <div class="cert-title">Excellence in C++</div>
+        <div class="cert-desc">Advanced C++ concepts including data structures, algorithms, and competitive problem-solving.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-bg">
+    <div class="contact-section" id="contact">
+      <div class="section-header fade-in">
+        <span class="section-label">06 / Contact</span>
+        <h2>Let's Connect</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-message fade-in">
+          <h3>Open to opportunities &amp; collaboration</h3>
+          <p>
+            I'm currently looking for placement years, internships, or graduate roles in software engineering, mobile development, or AI/automation. If you'd like to discuss an opportunity or simply connect, I'd love to hear from you.
+          </p>
+          <p><strong>Languages spoken:</strong></p>
+          <div class="languages">
+            <div class="lang-badge">
+              <span class="lang-name">English</span>
+              <span class="lang-level">Fluent</span>
+            </div>
+            <div class="lang-badge">
+              <span class="lang-name">Hindi</span>
+              <span class="lang-level">Fluent</span>
+            </div>
+            <div class="lang-badge">
+              <span class="lang-name">German</span>
+              <span class="lang-level">Elementary</span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-links fade-in">
+          <a href="mailto:divyanshugaba2612@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉</span>
+            <div>
+              <span class="contact-link-label">Email</span>
+              <span class="contact-link-value">divyanshugaba2612@gmail.com</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/divyanshu-gaba" target="_blank" class="contact-link">
+            <span class="contact-link-icon">in</span>
+            <div>
+              <span class="contact-link-label">LinkedIn</span>
+              <span class="contact-link-value">linkedin.com/in/divyanshu-gaba</span>
+            </div>
+          </a>
+          <a href="https://github.com/DivyanshuGaba" target="_blank" class="contact-link">
+            <span class="contact-link-icon">⌥</span>
+            <div>
+              <span class="contact-link-label">GitHub</span>
+              <span class="contact-link-value">github.com/DivyanshuGaba</span>
+            </div>
+          </a>
+          <a href="#" class="contact-link">
+            <span class="contact-link-icon">📍</span>
+            <div>
+              <span class="contact-link-label">Location</span>
+              <span class="contact-link-value">Hatfield, Hertfordshire, UK</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Divyanshu Gaba · All rights reserved</p>
+    <p>Built with care · <a href="https://bcs.org" target="_blank">BCS Member</a></p>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-ins
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
