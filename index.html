@@ -406,6 +406,94 @@
     .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
     .project-card:hover::after { width: 100%; }
 
+    /* ── ACTIVE PROJECT CARD ── */
+    .project-card.active-project {
+      border: 1.5px solid var(--accent);
+      background: #fffcfa;
+      grid-column: 1 / -1;
+    }
+
+    .project-card.active-project::after {
+      width: 100%;
+    }
+
+    .active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .active-badge::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: white;
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .active-project-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .progress-block {
+      margin-top: 1.5rem;
+    }
+
+    .progress-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.8rem;
+    }
+
+    .progress-phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .phase-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.82rem;
+    }
+
+    .phase-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .phase-dot.done { background: var(--accent); }
+    .phase-dot.active { background: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
+    .phase-dot.pending { background: var(--border); border: 1px solid #bbb; }
+
+    .phase-text.done { color: var(--ink); font-weight: 500; }
+    .phase-text.active { color: var(--accent); font-weight: 600; }
+    .phase-text.pending { color: var(--muted); font-weight: 300; }
+
     .project-year {
       font-family: 'DM Mono', monospace;
       font-size: 0.7rem;
@@ -420,6 +508,10 @@
       font-size: 1.4rem;
       margin-bottom: 0.8rem;
       line-height: 1.2;
+    }
+
+    .active-project .project-title {
+      font-size: 1.8rem;
     }
 
     .project-desc {
@@ -709,6 +801,7 @@
       .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .skills-grid, .certs-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
+      .active-project-inner { grid-template-columns: 1fr; gap: 2rem; }
       .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
       .skills-section { padding: 4rem 1.5rem; }
       .contact-section { padding: 4rem 1.5rem; }
@@ -750,7 +843,7 @@
           <p class="hero-card-label">// profile snapshot</p>
           <div class="stat-grid">
             <div class="stat-item">
-              <div class="stat-number">4+</div>
+              <div class="stat-number">5+</div>
               <div class="stat-label">Projects</div>
             </div>
             <div class="stat-item">
@@ -856,6 +949,8 @@
             <span class="tech-pill">NSE Data Systems</span>
             <span class="tech-pill">MVVM</span>
             <span class="tech-pill">Coroutines/Flow</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Docker</span>
           </div>
         </div>
         <div class="skill-cell">
@@ -869,6 +964,7 @@
             <span class="tech-pill">Agile</span>
             <span class="tech-pill">QA &amp; Testing</span>
             <span class="tech-pill">Cybersecurity</span>
+            <span class="tech-pill">AI / Game Search</span>
           </div>
         </div>
       </div>
@@ -883,6 +979,72 @@
       <div class="section-line"></div>
     </div>
     <div class="projects-grid">
+
+      <!-- ACTIVE PROJECT — spans full width -->
+      <div class="project-card active-project fade-in">
+        <div class="active-badge">Currently Building</div>
+        <div class="active-project-inner">
+          <div>
+            <div class="project-year">2026 — In Progress</div>
+            <div class="project-title">Connect 4 AI Arena</div>
+            <p class="project-desc">
+              A game-playing AI built from scratch in Python — featuring multiple algorithms (Minimax with alpha-beta pruning, Monte Carlo Tree Search, and a planned self-play neural net) that compete against each other and against human players through a live web interface. The AI's decision-making is streamed in real time over WebSockets, so you can watch it think move by move.
+            </p>
+            <ul class="project-highlights">
+              <li>Minimax + alpha-beta pruning achieving 100% win rate against random baseline at depth 6 in under 2s per game</li>
+              <li>FastAPI backend with REST endpoints and WebSocket streaming of live AI evaluations</li>
+              <li>Clean architecture: game engine, AI algorithms, and API layer each fully isolated and independently tested</li>
+              <li>9 pytest unit tests covering board logic, win detection, and edge cases — all passing</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">WebSockets</span>
+              <span class="tag">Minimax</span>
+              <span class="tag">Alpha-Beta Pruning</span>
+              <span class="tag">MCTS</span>
+              <span class="tag">pytest</span>
+              <span class="tag">Docker</span>
+            </div>
+            <a href="https://github.com/DivyanshuGaba/connect4-ai-arena" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+          <div>
+            <div class="progress-block">
+              <div class="progress-label">// build progress</div>
+              <div class="progress-phases">
+                <div class="phase-row">
+                  <div class="phase-dot done"></div>
+                  <span class="phase-text done">Phase 1 — Game Engine (board, moves, win detection)</span>
+                </div>
+                <div class="phase-row">
+                  <div class="phase-dot done"></div>
+                  <span class="phase-text done">Phase 2 — Minimax AI + heuristic evaluation</span>
+                </div>
+                <div class="phase-row">
+                  <div class="phase-dot active"></div>
+                  <span class="phase-text active">Phase 3 — FastAPI backend + WebSocket streaming ←</span>
+                </div>
+                <div class="phase-row">
+                  <div class="phase-dot pending"></div>
+                  <span class="phase-text pending">Phase 4 — Web frontend (canvas board UI)</span>
+                </div>
+                <div class="phase-row">
+                  <div class="phase-dot pending"></div>
+                  <span class="phase-text pending">Phase 5 — MCTS implementation + benchmark</span>
+                </div>
+                <div class="phase-row">
+                  <div class="phase-dot pending"></div>
+                  <span class="phase-text pending">Phase 6 — Docker + live deployment</span>
+                </div>
+                <div class="phase-row">
+                  <div class="phase-dot pending"></div>
+                  <span class="phase-text pending">Phase 7 — Self-play neural net (stretch goal)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="project-card fade-in">
         <div class="project-year">2025</div>
@@ -1096,12 +1258,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 Divyanshu Gaba · All rights reserved</p>
+    <p>© 2026 Divyanshu Gaba · All rights reserved</p>
     <p>Built with care · <a href="https://bcs.org" target="_blank">BCS Member</a></p>
   </footer>
 
   <script>
-    // Scroll-triggered fade-ins
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
